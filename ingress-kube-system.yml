@@ -1,0 +1,21 @@
+# An Ingress with 2 hosts and 3 endpoints
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-system
+  namespace: kube-system
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+   - http:
+      paths:
+      - path: /kibana
+        backend:
+          serviceName: kibana-logging
+          servicePort: 5601
+      - path: /search
+        backend:
+          serviceName: elasticsearch-logging
+          servicePort: 9200
